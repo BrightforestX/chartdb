@@ -33,6 +33,12 @@ export const DATABASE_CAPABILITIES: Record<DatabaseType, DatabaseCapabilities> =
             supportsSchemas: true,
             supportsComments: true,
         },
+        [DatabaseType.SURREALDB]: {
+            supportsArrays: true,
+            supportsSchemas: true,
+            supportsComments: true,
+        },
+        [DatabaseType.FIRESTORE]: {},
         [DatabaseType.GENERIC]: {},
     };
 
