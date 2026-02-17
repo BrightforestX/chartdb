@@ -17,12 +17,12 @@ Integrate ChartDB with Pipedream workflows, Model Context Protocol (MCP), and Cr
 - [x] Add prompts for schema generation
 - [x] Test MCP server locally
 
-### [ ] 2. Pipedream Integration
-- [ ] Create Pipedream component for ChartDB
-- [ ] Add webhook endpoints for diagram events
-- [ ] Implement database connection triggers
-- [ ] Create example workflows
-- [ ] Document Pipedream setup
+### [x] 2. Pipedream Integration
+- [x] Create Pipedream component for ChartDB
+- [x] Add webhook endpoints for diagram events
+- [x] Implement database connection triggers
+- [x] Create example workflows
+- [x] Document Pipedream setup
 
 ### [ ] 3. CrewAI Agent System
 - [ ] Design agent architecture
