@@ -9,8 +9,8 @@
 
 ### Phase 1: Core Business Logic (lib/domain)
 - [x] lib/domain/diff/* (area-diff, note-diff, field-diff, index-diff, relationship-diff, table-diff, diff.ts) - COMPLETED
-- [ ] lib/domain/diagram-filter/* (filter.ts, diagram-filter.ts)
-- [ ] lib/domain utility files (graph.ts, databases.ts)
+- [x] lib/domain/diagram-filter/* (filter.ts, diagram-filter.ts) - COMPLETED
+- [x] lib/domain utility files (graph.ts, databases.ts) - COMPLETED
 - [ ] lib/utils/* (utils.ts, area-utils.ts)
 
 ### Phase 2: Data Layer
