@@ -30,7 +30,7 @@ export const getNangoDatabaseConnection = async (
 ): Promise<NangoDatabaseConnection | null> => {
     try {
         const connection = await nango.getConnection(connectionId);
-        
+
         if (!connection) {
             return null;
         }
@@ -55,7 +55,10 @@ export const testNangoDatabaseConnection = async (
     connectionId: string
 ): Promise<boolean> => {
     try {
-        const connection = await getNangoDatabaseConnection(nango, connectionId);
+        const connection = await getNangoDatabaseConnection(
+            nango,
+            connectionId
+        );
         return connection !== null;
     } catch (error) {
         console.error('Database connection test failed:', error);
@@ -65,13 +68,14 @@ export const testNangoDatabaseConnection = async (
 
 /**
  * Get all active Nango database connections
+ * Note: This would require implementing a backend endpoint
+ * that lists connections for the current user.
+ * The nango parameter would be used to fetch connections from the API.
  */
-export const listNangoDatabaseConnections = async (
-    nango: Nango
-): Promise<NangoDatabaseConnection[]> => {
+export const listNangoDatabaseConnections = async (): Promise<
+    NangoDatabaseConnection[]
+> => {
     try {
-        // Note: This would require implementing a backend endpoint
-        // that lists connections for the current user
         // For now, return empty array as this is a frontend-only implementation
         return [];
     } catch (error) {
@@ -92,9 +96,7 @@ export const formatConnectionDisplayName = (
 /**
  * Check if a database type is supported by Nango integration
  */
-export const isSupportedNangoDatabaseType = (
-    databaseType: string
-): boolean => {
+export const isSupportedNangoDatabaseType = (databaseType: string): boolean => {
     return Object.values(NANGO_DATABASE_PROVIDERS).includes(
         databaseType as (typeof NANGO_DATABASE_PROVIDERS)[keyof typeof NANGO_DATABASE_PROVIDERS]
     );

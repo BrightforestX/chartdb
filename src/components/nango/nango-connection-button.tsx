@@ -35,14 +35,12 @@ export const NangoConnectionButton: React.FC<NangoConnectionButtonProps> = ({
         }
     };
 
-    const connected = connectionId
-        ? isConnected(connectionId)
-        : false;
+    const connected = connectionId ? isConnected(connectionId) : false;
 
     if (isLoading) {
         return (
             <Button disabled className={className}>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 size-4 animate-spin" />
                 Initializing...
             </Button>
         );
@@ -54,7 +52,7 @@ export const NangoConnectionButton: React.FC<NangoConnectionButtonProps> = ({
             disabled={connecting || connected}
             className={className}
         >
-            {connecting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {connecting && <Loader2 className="mr-2 size-4 animate-spin" />}
             {connected
                 ? 'Connected'
                 : label || `Connect to ${providerConfigKey}`}

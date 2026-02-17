@@ -47,7 +47,10 @@ export const NangoProvider: React.FC<
             }
 
             try {
-                const result = await nango.auth(providerConfigKey, connectionId);
+                const result = await nango.auth(
+                    providerConfigKey,
+                    connectionId
+                );
 
                 if (result) {
                     const newConnection: NangoConnection = {

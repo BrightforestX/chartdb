@@ -12,7 +12,10 @@ export interface NangoContext {
     nango: Nango | null;
     isLoading: boolean;
     connections: NangoConnection[];
-    connect: (providerConfigKey: string, connectionId?: string) => Promise<void>;
+    connect: (
+        providerConfigKey: string,
+        connectionId?: string
+    ) => Promise<void>;
     disconnect: (connectionId: string) => Promise<void>;
     getConnection: (connectionId: string) => NangoConnection | undefined;
     isConnected: (connectionId: string) => boolean;
