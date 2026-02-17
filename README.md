@@ -70,6 +70,8 @@ ChartDB is currently in Public Beta. Star and watch this repository to get notif
 - ✅ SQLite (<img src="./src/assets/sqlite_logo_2.png" width="15"/> + <img src="./src/assets/cloudflare_d1.png" alt="Cloudflare D1" width="15"/> Cloudflare D1)
 - ✅ CockroachDB
 - ✅ ClickHouse
+- ✅ SurrealDB
+- ✅ Firestore
 
 ## Getting Started
 
@@ -146,6 +148,12 @@ VITE_LLM_MODEL_NAME=Qwen/Qwen2.5-32B-Instruct-AWQ
 4. Take the magic query and run it in your database.
 5. Copy and paste the resulting JSON set into ChartDB.
 6. Enjoy Viewing & Editing!
+
+## Nango Authentication Integration
+
+ChartDB now supports [Nango](https://www.nango.dev/) for secure authentication and connection to external database services. This enables you to connect to databases using OAuth and other authentication methods without storing credentials locally.
+
+See the [Nango Integration Guide](./docs/NANGO_INTEGRATION.md) for detailed setup and usage instructions.
 
 ## 💚 Community & Support
 
