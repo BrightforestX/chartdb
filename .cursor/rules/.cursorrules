@@ -1,0 +1,444 @@
+# ChartDB - Cursor AI Rules
+
+## Project Overview
+
+ChartDB is a powerful, web-based database diagramming editor that allows users to instantly visualize database schemas, edit them interactively, and export to various formats. The application is built with React 18, TypeScript, Vite, and uses Radix UI for accessible components with TailwindCSS for styling.
+
+### Key Features
+- Instant schema import from multiple database types
+- AI-powered export and migration assistance
+- Interactive diagram editing with ReactFlow
+- Support for PostgreSQL, MySQL, SQLite, SQL Server, and more
+- DBML import/export
+- IndexedDB for local storage (Dexie)
+- Internationalization (i18next)
+- Fully accessible (WCAG 2.1 Level AA)
+
+### Tech Stack
+- **Frontend**: React 18, TypeScript, Vite
+- **UI**: Radix UI primitives, TailwindCSS, class-variance-authority
+- **State**: React Context, IndexedDB (Dexie)
+- **Diagrams**: ReactFlow
+- **Testing**: Vitest, React Testing Library
+- **AI**: Vercel AI SDK with OpenAI
+- **i18n**: i18next, react-i18next
+
+## Architecture Guidelines
+
+### Directory Structure
+```
+src/
+├── components/       # Reusable UI components
+├── pages/           # Page-level components
+├── dialogs/         # Modal dialogs
+├── lib/             # Business logic
+│   ├── domain/      # Domain models
+│   ├── data/        # Data access/parsing
+│   └── utils/       # Utility functions
+├── context/         # React context providers
+├── hooks/           # Custom React hooks
+└── i18n/            # Internationalization
+```
+
+### Module Boundaries
+- Components should NOT contain business logic
+- Use @/ path alias for all src imports
+- No circular dependencies
+- Follow strict TypeScript mode
+- Colocate tests with code
+
+## Code Style and Quality
+
+### TypeScript
+- **Always** use `import type` for type imports (enforced by ESLint)
+- Use interfaces for component props and object shapes
+- Use types for unions, intersections, and function signatures
+- Avoid `any` - use `unknown` if type is truly unknown
+- Define proper types for all function parameters and return values
+
+```typescript
+// ✅ Good
+import type { FC } from 'react';
+import { useState } from 'react';
+
+export interface ButtonProps {
+    variant?: 'primary' | 'secondary';
+    onClick: () => void;
+}
+
+export const Button: FC<ButtonProps> = ({ variant = 'primary', onClick }) => {
+    // Implementation
+};
+
+// ❌ Bad
+import { FC } from 'react'; // Should be import type
+export const Button = (props: any) => { }; // No any!
+```
+
+### React Components
+- Use functional components with hooks
+- Use React.forwardRef for components needing refs
+- Always set displayName for forwardRef components
+- Use CVA (class-variance-authority) for component variants
+- Extend appropriate HTML element props
+
+```typescript
+// ✅ Good
+import React from 'react';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from './button-variants';
+import type { VariantProps } from 'class-variance-authority';
+
+export interface ButtonProps
+    extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+        VariantProps<typeof buttonVariants> {
+    asChild?: boolean;
+}
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ className, variant, size, ...props }, ref) => {
+        return (
+            <button
+                className={cn(buttonVariants({ variant, size, className }))}
+                ref={ref}
+                {...props}
+            />
+        );
+    }
+);
+Button.displayName = 'Button';
+```
+
+### Styling
+- **Always** use the `cn()` utility for className merging
+- Use TailwindCSS classes (no inline styles except dynamic values)
+- Support dark mode with semantic color tokens
+- Provide className prop for all components
+- Use CVA for component variants
+
+```typescript
+// ✅ Good
+<div className={cn(
+    'flex items-center gap-4',
+    'bg-background text-foreground',
+    'dark:bg-gray-900',
+    className
+)} />
+
+// ❌ Bad
+<div className={`flex ${isActive ? 'active' : ''} ${className}`} /> // Use cn()
+<div style={{ display: 'flex' }} /> // Use Tailwind classes
+```
+
+### Imports and Exports
+- Use named exports (no default exports)
+- Order: external → type imports → internal → relative → styles
+- Always use @/ alias for src imports
+- Use barrel exports sparingly (only for compound components)
+
+```typescript
+// ✅ Good import order
+import React, { useState } from 'react';
+import type { FC } from 'react';
+import { Button } from '@/components/button/button';
+import type { Diagram } from '@/lib/domain/diagram';
+import { TableRow } from './table-row';
+import styles from './component.module.css';
+```
+
+## Development Guidelines
+
+### State Management
+- Keep state as local as possible
+- Use Context for shared state across related components
+- Use Dexie (IndexedDB) for persistent storage
+- Use custom hooks to encapsulate state logic
+- Clean up subscriptions in useEffect
+
+```typescript
+// ✅ Good - Custom hook with cleanup
+export function useSearch(query: string) {
+    const [results, setResults] = useState([]);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        async function search() {
+            try {
+                const data = await performSearch(query, controller.signal);
+                setResults(data);
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error(error);
+                }
+            }
+        }
+
+        search();
+
+        return () => {
+            controller.abort(); // Cleanup!
+        };
+    }, [query]);
+
+    return results;
+}
+```
+
+### Error Handling
+- Use typed error classes (extend Error)
+- Catch errors at appropriate levels
+- Show user-friendly error messages via toast
+- Use error boundaries for React component errors
+- Validate data with Zod schemas
+- Log errors with context in production
+
+```typescript
+// ✅ Good
+try {
+    await saveDiagram(diagram);
+    toast.success('Diagram saved successfully');
+} catch (error) {
+    logError(error as Error, { operation: 'saveDiagram', diagramId: diagram.id });
+    toast.error('Failed to save diagram. Please try again.');
+    throw error;
+}
+```
+
+### Performance
+- Use React.memo for expensive components
+- Use useMemo for expensive calculations
+- Use useCallback for stable function references
+- Implement virtualization for long lists (react-window)
+- Lazy load routes and heavy components
+- Debounce/throttle expensive operations
+
+```typescript
+// ✅ Good - Memoized component
+export const TableRow = React.memo<TableRowProps>(({ table, onSelect }) => {
+    return <div onClick={() => onSelect(table.id)}>{table.name}</div>;
+});
+TableRow.displayName = 'TableRow';
+
+// ✅ Good - Debounced search
+const debouncedSearch = useDebouncedCallback(
+    (value: string) => performSearch(value),
+    500
+);
+```
+
+### Testing
+- Colocate tests with code (*.test.tsx)
+- Use accessible queries (getByRole, getByLabelText)
+- Use userEvent for interactions (not fireEvent)
+- Test behavior, not implementation
+- Add tests for edge cases and error states
+
+```typescript
+// ✅ Good
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+it('calls onClick when clicked', async () => {
+    const onClick = vi.fn();
+    const user = userEvent.setup();
+
+    render(<Button onClick={onClick}>Click me</Button>);
+
+    await user.click(screen.getByRole('button', { name: /click me/i }));
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+});
+```
+
+### Accessibility
+- Use semantic HTML elements
+- Provide text alternatives for images
+- Ensure keyboard accessibility
+- Use proper ARIA attributes
+- Maintain logical heading hierarchy
+- Ensure sufficient color contrast (4.5:1 minimum)
+- Test with screen readers
+
+```typescript
+// ✅ Good - Accessible button
+<button
+    aria-label="Delete diagram"
+    className={cn(
+        'focus-visible:outline-none',
+        'focus-visible:ring-2',
+        'focus-visible:ring-ring'
+    )}
+>
+    <TrashIcon aria-hidden="true" />
+</button>
+```
+
+### Internationalization
+- Never hardcode user-facing strings
+- Use hierarchical translation keys
+- Use useTranslation hook
+- Support pluralization
+- Format dates/numbers according to locale
+
+```typescript
+// ✅ Good
+import { useTranslation } from 'react-i18next';
+
+export const CreateButton: FC = () => {
+    const { t } = useTranslation();
+    return <button>{t('common.button.create')}</button>;
+};
+
+// ❌ Bad
+export const CreateButton = () => <button>Create</button>;
+```
+
+## Database Integration
+
+### SQL Import/Export
+- Support multiple database dialects (PostgreSQL, MySQL, SQLite, MSSQL)
+- Use dialect-specific importers/exporters
+- Escape identifiers properly
+- Handle edge cases (reserved words, special characters)
+- Validate imported data
+- Support DBML format
+
+### Type Mapping
+- Map database-specific types to normalized types
+- Preserve precision, scale, length information
+- Support array types (PostgreSQL)
+- Handle nullable constraints correctly
+
+## AI Integration
+
+### Using AI SDK
+- Check if AI is enabled before using (`isAIEnabled()`)
+- Use appropriate system prompts
+- Handle errors gracefully with retries
+- Show loading states
+- Cache responses when appropriate
+- Validate AI-generated content
+- Support custom endpoints and models
+
+```typescript
+// ✅ Good
+export async function generateSQL(description: string): Promise<string> {
+    if (!isAIEnabled()) {
+        throw new Error('AI features are not enabled');
+    }
+
+    try {
+        const { text } = await generateText({
+            model: openai(AI_CONFIG.model),
+            system: 'You are a PostgreSQL expert...',
+            prompt: description,
+            temperature: 0.3,
+        });
+
+        return text;
+    } catch (error) {
+        logError(error as Error);
+        throw new Error('Failed to generate SQL');
+    }
+}
+```
+
+## Code Generation Preferences
+
+When generating code:
+
+1. **Follow existing patterns**: Match the style and structure of existing code
+2. **Use TypeScript strictly**: Proper types, no any, use import type
+3. **Implement accessibility**: ARIA labels, keyboard navigation, focus management
+4. **Add error handling**: Try-catch blocks, user-friendly errors, toast notifications
+5. **Include tests**: Write tests for new components and functions
+6. **Consider i18n**: Use translation keys, no hardcoded strings
+7. **Optimize performance**: Memoization, lazy loading where appropriate
+8. **Document complex logic**: Add comments for non-obvious code
+9. **Use Radix UI**: Leverage Radix primitives for accessible components
+10. **Follow TailwindCSS**: Use utility classes, support dark mode
+
+## Git Workflow
+
+### Commits
+- Use Conventional Commits format: `type(scope): description`
+- Types: feat, fix, docs, style, refactor, test, chore
+- Make atomic commits (one logical change)
+- Write clear, descriptive messages
+
+### Pull Requests
+- Keep PRs focused and reasonably sized (<400 lines)
+- Fill out PR template completely
+- Run linter and tests before pushing
+- Self-review before requesting review
+- Respond to feedback promptly
+
+## Project-Specific Rules
+
+### ChartDB Domain
+- Tables have fields and relationships
+- Relationships connect tables via source/target fields
+- Diagrams contain tables and relationships
+- Support multiple database types (databaseType property)
+- Use nanoid() for generating IDs
+
+### Data Persistence
+- Use Dexie for IndexedDB operations
+- Batch database operations when possible
+- Use indexes for efficient queries
+- Handle QuotaExceededError gracefully
+
+### Canvas/Diagram Editing
+- Use ReactFlow for diagram rendering
+- Implement undo/redo functionality
+- Handle table positioning and layout
+- Support relationship visualization with different cardinalities
+
+## Important Files to Reference
+
+When working on specific areas, reference these guidelines:
+- **Architecture**: `.cursor/rules/01-architecture.md`
+- **TypeScript**: `.cursor/rules/02-typescript.md`
+- **React**: `.cursor/rules/03-react-components.md`
+- **Styling**: `.cursor/rules/04-styling.md`
+- **State**: `.cursor/rules/05-state-management.md`
+- **Testing**: `.cursor/rules/06-testing.md`
+- **Imports**: `.cursor/rules/07-imports-exports.md`
+- **Performance**: `.cursor/rules/08-performance.md`
+- **Errors**: `.cursor/rules/09-error-handling.md`
+- **i18n**: `.cursor/rules/10-i18n.md`
+- **Database**: `.cursor/rules/11-database-schemas.md`
+- **AI**: `.cursor/rules/12-ai-integration.md`
+- **Accessibility**: `.cursor/rules/13-accessibility.md`
+- **Git**: `.cursor/rules/14-git-workflow.md`
+
+## Quality Checklist
+
+Before submitting code, ensure:
+- [ ] TypeScript strict mode passes with no errors
+- [ ] ESLint passes with no warnings
+- [ ] Prettier formatting applied
+- [ ] All tests pass
+- [ ] No console.log statements
+- [ ] Accessibility standards met
+- [ ] i18n keys added for new text
+- [ ] Error handling implemented
+- [ ] Performance considered
+- [ ] Documentation updated
+- [ ] Self-review completed
+
+## Key Takeaways
+
+1. **Type Safety**: Use TypeScript strictly, import type for types
+2. **Accessibility**: WCAG 2.1 AA compliance, test with keyboard and screen readers
+3. **Performance**: Memoize appropriately, lazy load, virtualize long lists
+4. **Error Handling**: User-friendly messages, proper logging, graceful degradation
+5. **Testing**: Test behavior with accessible queries, add edge case tests
+6. **Code Quality**: Clear naming, single responsibility, DRY principles
+7. **User Experience**: Loading states, error states, internationalization
+8. **Maintainability**: Clear documentation, logical organization, consistent patterns
+
+---
+
+When in doubt, follow the patterns established in the existing codebase and refer to the detailed guidelines in the individual rule files.
