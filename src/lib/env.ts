@@ -12,3 +12,14 @@ export const HIDE_CHARTDB_CLOUD: boolean =
 export const DISABLE_ANALYTICS: boolean =
     (window?.env?.DISABLE_ANALYTICS ??
         import.meta.env.VITE_DISABLE_ANALYTICS) === 'true';
+
+// Firebase (Crashlytics + Cloud Logging compatible)
+export const FIREBASE_PROJECT_ID: string | undefined =
+    (window?.env?.FIREBASE_PROJECT_ID as string | undefined) ??
+    import.meta.env.VITE_FIREBASE_PROJECT_ID;
+export const FIREBASE_API_KEY: string | undefined =
+    (window?.env?.FIREBASE_API_KEY as string | undefined) ??
+    import.meta.env.VITE_FIREBASE_API_KEY;
+export const FIREBASE_APP_ID: string | undefined =
+    (window?.env?.FIREBASE_APP_ID as string | undefined) ??
+    import.meta.env.VITE_FIREBASE_APP_ID;
