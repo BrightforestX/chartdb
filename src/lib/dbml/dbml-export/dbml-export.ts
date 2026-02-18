@@ -5,6 +5,9 @@ import { DatabaseType } from '@/lib/domain/database-type';
 import type { DBTable } from '@/lib/domain/db-table';
 import type { DBCustomType } from '@/lib/domain/db-custom-type';
 import { DBCustomTypeKind } from '@/lib/domain/db-custom-type';
+import { createLogger } from '@/lib/logger';
+
+const logger = createLogger('dbml-export');
 
 // Use DBCustomType for generating Enum DBML
 const generateEnumsDBML = (customTypes: DBCustomType[] | undefined): string => {
@@ -966,11 +969,12 @@ export function generateDBMLFromDiagram(diagram: Diagram): DBMLExportResult {
             inline += '\n';
         }
     } catch (error: unknown) {
-        console.error(
-            'Error during DBML generation process:',
-            error,
-            'Input SQL was:',
-            baseScript // Log the SQL that caused the error
+        logger.error(
+            'dbml_generation_failed',
+            'Error during DBML generation process',
+            {
+                error,
+            }
         );
 
         errorMsg = error instanceof Error ? error.message : 'Unknown error';
