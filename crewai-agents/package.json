@@ -1,0 +1,27 @@
+{
+  "name": "@chartdb/crewai-agents",
+  "version": "0.1.0",
+  "description": "CrewAI agents for intelligent database schema management",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest"
+  },
+  "keywords": [
+    "crewai",
+    "agents",
+    "database",
+    "schema",
+    "ai"
+  ],
+  "dependencies": {
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "typescript": "^5.2.2",
+    "vitest": "^3.2.4"
+  }
+}
