@@ -331,6 +331,9 @@ export const zh_CN: LanguageTranslation = {
                 check_script_result: '检查脚本结果',
             },
 
+            select_tables: {
+                title: '选择表',
+            },
             cancel: '取消',
             import_from_file: '从文件导入',
             back: '上一步',

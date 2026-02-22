@@ -30,6 +30,8 @@ const TRANSACTIONAL_DB_TYPES: DatabaseType[] = [
     DatabaseType.SQL_SERVER,
     DatabaseType.ORACLE,
     DatabaseType.COCKROACHDB,
+    DatabaseType.SURREALDB,
+    DatabaseType.FIRESTORE,
 ];
 
 // Analytical databases - OLAP systems optimized for complex queries and analytics

@@ -330,6 +330,9 @@ export const hr: LanguageTranslation = {
                 check_script_result: 'Provjeri rezultat skripte',
             },
 
+            select_tables: {
+                title: 'Odaberi tablice',
+            },
             cancel: 'Odustani',
             import_from_file: 'Uvezi iz datoteke',
             back: 'Natrag',

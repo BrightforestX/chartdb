@@ -340,6 +340,9 @@ export const mr: LanguageTranslation = {
                 check_script_result: 'Check Script Result',
             },
 
+            select_tables: {
+                title: 'टेबल निवडा',
+            },
             cancel: 'रद्द करा',
             // TODO: Add translations
             import_from_file: 'Import from File',

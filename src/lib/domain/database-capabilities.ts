@@ -34,8 +34,8 @@ export const DATABASE_CAPABILITIES: Record<DatabaseType, DatabaseCapabilities> =
             supportsComments: true,
         },
         [DatabaseType.SURREALDB]: {
-            supportsArrays: true,
             supportsSchemas: true,
+            supportsCustomTypes: true,
             supportsComments: true,
         },
         [DatabaseType.FIRESTORE]: {},

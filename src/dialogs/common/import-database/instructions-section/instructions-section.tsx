@@ -24,6 +24,8 @@ import type { ImportMethod } from '@/lib/import-method/import-method';
 const DatabasesWithoutDDLInstructions: DatabaseType[] = [
     DatabaseType.CLICKHOUSE,
     DatabaseType.ORACLE,
+    DatabaseType.SURREALDB,
+    DatabaseType.FIRESTORE,
 ];
 
 export interface InstructionsSectionProps {

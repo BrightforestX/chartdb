@@ -336,6 +336,9 @@ export const gu: LanguageTranslation = {
                 check_script_result: 'સ્ક્રિપ્ટ પરિણામ તપાસો',
             },
 
+            select_tables: {
+                title: 'કોષ્ટકો પસંદ કરો',
+            },
             cancel: 'રદ કરો',
             back: 'પાછા',
             import_from_file: 'ફાઇલમાંથી આયાત કરો',

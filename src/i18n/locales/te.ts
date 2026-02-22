@@ -337,6 +337,9 @@ export const te: LanguageTranslation = {
                 check_script_result: 'స్క్రిప్ట్ ఫలితం తనిఖీ చేయండి',
             },
 
+            select_tables: {
+                title: 'పట్టికలు ఎంచుకోండి',
+            },
             cancel: 'రద్దు',
             // TODO: Translate
             import_from_file: 'Import from File',

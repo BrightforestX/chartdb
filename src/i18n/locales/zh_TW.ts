@@ -330,6 +330,9 @@ export const zh_TW: LanguageTranslation = {
                 check_script_result: '檢查腳本結果',
             },
 
+            select_tables: {
+                title: '選擇資料表',
+            },
             cancel: '取消',
             import_from_file: '從檔案匯入',
             back: '返回',
