@@ -1,71 +1,12 @@
 /**
  * ChartDB CrewAI Agents - Main Entry Point
- * Optimized orchestration system with caching, monitoring, and reliability features
  */
 
-// Agents
 export { SchemaAnalyzerAgent } from './agents/schema-analyzer.js';
 export { DiagramGeneratorAgent } from './agents/diagram-generator.js';
 export { OptimizationAgent } from './agents/optimization-agent.js';
-
-// Crews
 export { SchemaCrew } from './crews/schema-crew.js';
-export { SchemaCrewPipeline } from './crews/schema-crew-pipeline.js';
 
-// Cache
-export { AgentCache } from './cache/agent-cache.js';
-
-// Utils
-export { createCircuitBreaker, CircuitBreaker, CircuitState } from './utils/circuit-breaker.js';
-export { 
-    retry, 
-    retryWithResult, 
-    makeRetryable, 
-    Retryable,
-    RetryPresets,
-    RetryableError,
-    NetworkError,
-    TimeoutError,
-    RateLimitError,
-} from './utils/retry.js';
-export {
-    estimateTokens,
-    compressPrompt,
-    truncateToTokenLimit,
-    summarizeContent,
-    selectOptimalModel,
-    optimizePrompt,
-    calculateCost,
-    createTokenTracker,
-    TokenTracker,
-} from './utils/token-optimizer.js';
-
-// Pipeline
-export { 
-    createPipeline, 
-    AgentPipeline,
-    loggingMiddleware,
-    createTimingMiddleware,
-} from './pipeline/agent-pipeline.js';
-
-// Monitoring
-export { 
-    metrics, 
-    MetricsCollector,
-    monitored,
-} from './monitoring/metrics.js';
-
-// Validation
-export {
-    validators,
-    validateAgentResult,
-    DiagramValidator,
-    SchemaAnalysisValidator,
-    OptimizationReportValidator,
-    CompositeValidator,
-} from './validation/result-validator.js';
-
-// Types
 export type {
     SchemaAnalysis,
     SchemaIssue,
@@ -73,19 +14,26 @@ export type {
     DiagramLayout,
     OptimizationReport,
     AgentResult,
+    GenerateAndOptimizeResult,
+    AnalyzeDiagramResult,
+    OptimizeDiagramResult,
+    ValidateDiagramResult,
 } from './types.js';
-export type { Diagram } from './agents/schema-analyzer.js';
-export type { RetryConfig, RetryResult } from './utils/retry.js';
-export type { CircuitBreakerConfig, CircuitBreakerStats } from './utils/circuit-breaker.js';
-export type { TokenStats, OptimizationConfig } from './utils/token-optimizer.js';
-export type { PipelineStage, PipelineMiddleware, PipelineResult } from './pipeline/agent-pipeline.js';
-export type { 
-    AgentMetrics, 
-    OperationMetrics, 
-    CacheMetrics, 
-    SystemMetrics 
-} from './monitoring/metrics.js';
-export type { ValidationResult, ValidationError, ValidationWarning } from './validation/result-validator.js';
+
+export { AgentCache, generateCacheKey } from './utils/cache.js';
+export { PerformanceMonitor } from './utils/performance-monitor.js';
+export {
+    CircuitBreaker,
+    retryWithBackoff,
+    AgentError,
+    CircuitBreakerError,
+} from './utils/error-handler.js';
+export {
+    AgentCommunicationBus,
+    createRequest,
+    createResponse,
+    createEvent,
+} from './utils/agent-protocol.js';
 
 import { SchemaCrew } from './crews/schema-crew.js';
 
@@ -111,7 +59,7 @@ async function main() {
             console.log('Generating diagram...\n');
             const result = await crew.generateAndOptimize(description, databaseType);
 
-            if (result.success) {
+            if (result.success && result.data) {
                 console.log('\n📊 Generated Diagram:');
                 console.log(JSON.stringify(result.data.diagram, null, 2));
                 console.log('\n📋 Analysis:');
@@ -168,7 +116,7 @@ async function main() {
             console.log('Analyzing diagram...\n');
             const result = await crew.analyzeDiagram(exampleDiagram);
 
-            if (result.success) {
+            if (result.success && result.data) {
                 console.log('\n' + result.data.analysisReport);
                 console.log('\n' + result.data.optimizationPlan);
             } else {
@@ -199,7 +147,7 @@ async function main() {
             console.log('Validating diagram...\n');
             const result = await crew.validateDiagram(exampleDiagram);
 
-            if (result.success) {
+            if (result.success && result.data) {
                 console.log('Validation Result:', result.data.isValid ? '✅ PASSED' : '❌ FAILED');
                 console.log('\nSummary:');
                 console.log(`  Errors: ${result.data.summary.errorCount}`);

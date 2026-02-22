@@ -80,14 +80,18 @@ export class DiagramGeneratorAgent {
                 sourceTable.fields.splice(sourceTable.fields.length - 2, 0, fkField);
             }
 
-            const targetPkField = targetTable.fields.find(f => f.primaryKey);
+            const targetPkField = targetTable.fields.find(f => 'primaryKey' in f && f.primaryKey);
+
+            if (!targetPkField) {
+                throw new Error(`No primary key found in target table ${targetTable.name}`);
+            }
 
             return {
                 id: nanoid(),
                 sourceTableId: sourceTable.id,
                 targetTableId: targetTable.id,
                 sourceFieldId: fkField.id,
-                targetFieldId: targetPkField!.id,
+                targetFieldId: targetPkField.id,
                 type: rel.type,
             };
         });
