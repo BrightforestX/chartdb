@@ -1,49 +1,23 @@
-# 100% Test Coverage Plan for ChartDB
+# 100% Coverage Maestro Tests Plan
 
-## Current Status
-- Overall Coverage: 5.1%
-- Files with 0% coverage: 532
-- Target: 100% coverage
+## Overview
+Add Maestro E2E tests with Wireweave spec for flow_card, stepper, data_table, chip, bottom_nav components.
 
-## Priority Areas
+## Wireweave Spec Mapping
+- **flow_card** → Card component (data-testid="flow-card")
+- **stepper** → Tabs component (data-testid="stepper")
+- **data_table** → Table component (data-testid="data-table")
+- **chip** → Badge component (data-testid="chip")
+- **bottom_nav** → Sidebar component (data-testid="bottom-nav")
 
-### Phase 1: Core Business Logic (lib/domain)
-- [x] lib/domain/diff/* (area-diff, note-diff, field-diff, index-diff, relationship-diff, table-diff, diff.ts) - COMPLETED
-- [x] lib/domain/diagram-filter/* (filter.ts, diagram-filter.ts) - COMPLETED
-- [x] lib/domain utility files (graph.ts, databases.ts) - COMPLETED
-- [x] lib/utils/* (utils.ts, area-utils.ts) - COMPLETED
+## Todos
 
-## Phase 1 Status: COMPLETED ✅
-Total tests added in Phase 1: 287 tests
-
-### Phase 2: Data Layer
-- [ ] lib/data/import-metadata/* (all import metadata utilities)
-- [ ] lib/data/metadata-types/* (column-info, table-info, etc.)
-- [ ] lib/data/metadata-scripts/* (database scripts)
-
-### Phase 3: Hooks
-- [ ] hooks/* (all custom hooks)
-
-### Phase 4: Context Providers
-- [ ] context/* (all context providers)
-
-### Phase 5: Components & UI
-- [ ] components/canvas/* (canvas components)
-- [ ] components/side-panel/* (sidebar components)
-- [ ] dialogs/* (all dialog components)
-- [ ] pages/* (page components)
-
-### Phase 6: Templates & Data
-- [ ] templates-data/* (template definitions)
-- [ ] i18n/* (i18n configuration)
-
-## Test Strategy
-1. Unit tests for pure functions and utilities
-2. Integration tests for business logic
-3. Component tests with React Testing Library
-4. Mock external dependencies (APIs, storage, etc.)
-
-## Notes
-- Focus on critical paths first
-- Ensure tests are meaningful, not just for coverage
-- Use vitest and @testing-library/react
+- [x] Create Wireweave spec in tools/utilities/wireweave
+- [x] Add data-testid to Card (flow_card)
+- [x] Add data-testid to Table (data_table)
+- [x] Add data-testid to Tabs (stepper)
+- [x] Add data-testid to Badge (chip)
+- [x] Add data-testid to Sidebar (bottom_nav)
+- [x] Create Maestro flows for templates page
+- [x] Create Maestro flows for editor page
+- [x] Add maestro config and CI integration

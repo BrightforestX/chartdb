@@ -14,9 +14,13 @@ export interface ListMenuProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const ListMenu = React.forwardRef<HTMLDivElement, ListMenuProps>(
-    ({ className, items }, ref) => {
+    ({ className, items, ...props }, ref) => {
         return (
-            <div className={cn('flex flex-col gap-0.5', className)} ref={ref}>
+            <div
+                className={cn('flex flex-col gap-0.5', className)}
+                ref={ref}
+                {...props}
+            >
                 {items.map((item) => (
                     <Link
                         key={item.href}
