@@ -333,6 +333,9 @@ export const ru: LanguageTranslation = {
                 check_script_result: 'Проверить результат выполнения скрипта',
             },
 
+            select_tables: {
+                title: 'Выбрать таблицы',
+            },
             cancel: 'Отменить',
             back: 'Назад',
             import_from_file: 'Импортировать из файла',

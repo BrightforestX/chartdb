@@ -336,6 +336,9 @@ export const pt_BR: LanguageTranslation = {
                 check_script_result: 'Verificar Resultado do Script',
             },
 
+            select_tables: {
+                title: 'Selecionar Tabelas',
+            },
             cancel: 'Cancelar',
             back: 'Voltar',
             // TODO: Translate

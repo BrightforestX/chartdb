@@ -334,6 +334,9 @@ export const uk: LanguageTranslation = {
                 check_script_result: 'Перевірте результат сценарію',
             },
 
+            select_tables: {
+                title: 'Вибрати таблиці',
+            },
             cancel: 'Скасувати',
             back: 'Назад',
             import_from_file: 'Імпортувати з файлу',

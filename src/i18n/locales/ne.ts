@@ -337,6 +337,9 @@ export const ne: LanguageTranslation = {
                 check_script_result: 'स्क्रिप्ट परिणाम जाँच गर्नुहोस्',
             },
 
+            select_tables: {
+                title: 'तालिकाहरू छान्नुहोस्',
+            },
             cancel: 'रद्द गर्नुहोस्',
             import_from_file: 'फाइलबाट आयात गर्नुहोस्',
             back: 'फर्क',

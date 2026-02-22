@@ -335,6 +335,9 @@ export const vi: LanguageTranslation = {
                 check_script_result: 'Xem kết quả',
             },
 
+            select_tables: {
+                title: 'Chọn bảng',
+            },
             cancel: 'Hủy',
             import_from_file: 'Nhập từ tệp',
             back: 'Trở lại',

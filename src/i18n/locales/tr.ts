@@ -333,6 +333,10 @@ export const tr: LanguageTranslation = {
                     'Yardıma mı ihtiyacınız var? İzlemek için tıklayın',
                 check_script_result: 'Komut Dosyası Sonucunu Kontrol Et',
             },
+
+            select_tables: {
+                title: 'Tabloları Seç',
+            },
             // TODO: Translate
             import_from_file: 'Import from File',
             cancel: 'İptal',

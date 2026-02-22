@@ -338,6 +338,9 @@ export const de: LanguageTranslation = {
                 check_script_result: 'Skriptergebnis überprüfen',
             },
 
+            select_tables: {
+                title: 'Tabellen auswählen',
+            },
             cancel: 'Abbrechen',
             back: 'Zurück',
             // TODO: Translate
