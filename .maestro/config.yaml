@@ -1,0 +1,5 @@
+# Maestro workspace config for ChartDB web app
+# Run: npm run dev (in one terminal), then: maestro test maestro/ --env APP_URL=http://localhost:5173
+appId: ${APP_URL:-http://localhost:5173}
+env:
+  APP_URL: http://localhost:5173

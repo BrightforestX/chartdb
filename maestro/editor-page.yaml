@@ -1,0 +1,17 @@
+# Editor page - bottom_nav (sidebar) Wireweave spec
+appId: ${APP_URL:-http://localhost:5173}
+---
+- launchApp:
+    appId: ${APP_URL:-http://localhost:5173}
+- extendedWaitUntil:
+    visible:
+      id: "sidebar-trigger"
+    timeout: 10000
+- tapOn:
+    id: "sidebar-trigger"
+- extendedWaitUntil:
+    visible:
+      id: "bottom-nav"
+    timeout: 5000
+- assertVisible:
+    id: "bottom-nav"

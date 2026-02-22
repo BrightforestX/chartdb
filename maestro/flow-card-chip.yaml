@@ -1,0 +1,13 @@
+# flow_card and chip (Wireweave spec) - Templates page
+appId: ${APP_URL:-http://localhost:5173}/templates
+---
+- launchApp:
+    appId: ${APP_URL:-http://localhost:5173}/templates
+- extendedWaitUntil:
+    visible:
+      id: "flow-card"
+    timeout: 10000
+- assertVisible:
+    id: "flow-card"
+- assertVisible:
+    id: "chip"

@@ -1,0 +1,17 @@
+# Templates page - flow_card and chip (Wireweave spec)
+appId: ${APP_URL:-http://localhost:5173}/templates
+---
+- launchApp:
+    appId: ${APP_URL:-http://localhost:5173}/templates
+- extendedWaitUntil:
+    visible:
+      text: "Database schema templates"
+    timeout: 10000
+- assertVisible:
+    id: "flow-card"
+- assertVisible:
+    id: "chip"
+- tapOn:
+    text: "All Templates"
+- assertVisible:
+    text: "Database schema templates"

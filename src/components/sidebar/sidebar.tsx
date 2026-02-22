@@ -192,6 +192,7 @@ const Sidebar = React.forwardRef<
                         'flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground',
                         className
                     )}
+                    data-testid="bottom-nav"
                     ref={ref}
                     {...props}
                 >
@@ -224,7 +225,10 @@ const Sidebar = React.forwardRef<
                                 Displays the mobile sidebar.
                             </SheetDescription>
                         </SheetHeader>
-                        <div className="flex size-full flex-col">
+                        <div
+                            className="flex size-full flex-col"
+                            data-testid="bottom-nav"
+                        >
                             {children}
                         </div>
                     </SheetContent>
@@ -268,6 +272,7 @@ const Sidebar = React.forwardRef<
                 >
                     <div
                         data-sidebar="sidebar"
+                        data-testid="bottom-nav"
                         className="flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
                     >
                         {children}
@@ -289,6 +294,7 @@ const SidebarTrigger = React.forwardRef<
         <Button
             ref={ref}
             data-sidebar="trigger"
+            data-testid="sidebar-trigger"
             variant="ghost"
             size="icon"
             className={cn('h-7 w-7', className)}
@@ -315,6 +321,7 @@ const SidebarRail = React.forwardRef<
         <button
             ref={ref}
             data-sidebar="rail"
+            data-testid="sidebar-trigger"
             aria-label="Toggle Sidebar"
             tabIndex={-1}
             onClick={toggleSidebar}
