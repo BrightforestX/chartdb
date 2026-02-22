@@ -36,6 +36,8 @@ export const databaseTypeToLabelMap: Record<DatabaseType, string> = {
     [DatabaseType.CLICKHOUSE]: 'ClickHouse',
     [DatabaseType.COCKROACHDB]: 'CockroachDB',
     [DatabaseType.ORACLE]: 'Oracle',
+    [DatabaseType.SURREALDB]: 'SurrealDB',
+    [DatabaseType.FIRESTORE]: 'Firestore',
 };
 
 export const databaseLogoMap: Record<DatabaseType, string> = {
@@ -47,6 +49,8 @@ export const databaseLogoMap: Record<DatabaseType, string> = {
     [DatabaseType.CLICKHOUSE]: ClickhouseLogo,
     [DatabaseType.COCKROACHDB]: CockroachDBLogo,
     [DatabaseType.ORACLE]: OracleLogo,
+    [DatabaseType.SURREALDB]: GeneralDBLogo2,
+    [DatabaseType.FIRESTORE]: GeneralDBLogo2,
     [DatabaseType.GENERIC]: '',
 };
 
@@ -59,6 +63,8 @@ export const databaseDarkLogoMap: Record<DatabaseType, string> = {
     [DatabaseType.CLICKHOUSE]: ClickhouseLogoDark,
     [DatabaseType.COCKROACHDB]: CockroachDBLogoDark,
     [DatabaseType.ORACLE]: OracleLogoDark,
+    [DatabaseType.SURREALDB]: GeneralDBLogo2,
+    [DatabaseType.FIRESTORE]: GeneralDBLogo2,
     [DatabaseType.GENERIC]: '',
 };
 
@@ -79,5 +85,7 @@ export const databaseSecondaryLogoMap: Record<DatabaseType, string> = {
     [DatabaseType.CLICKHOUSE]: ClickhouseLogo2,
     [DatabaseType.COCKROACHDB]: CockroachDBLogo2,
     [DatabaseType.ORACLE]: OracleLogo2,
+    [DatabaseType.SURREALDB]: GeneralDBLogo2,
+    [DatabaseType.FIRESTORE]: GeneralDBLogo2,
     [DatabaseType.GENERIC]: GeneralDBLogo2,
 };
