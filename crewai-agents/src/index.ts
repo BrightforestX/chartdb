@@ -14,26 +14,7 @@ export type {
     DiagramLayout,
     OptimizationReport,
     AgentResult,
-    GenerateAndOptimizeResult,
-    AnalyzeDiagramResult,
-    OptimizeDiagramResult,
-    ValidateDiagramResult,
 } from './types.js';
-
-export { AgentCache, generateCacheKey } from './utils/cache.js';
-export { PerformanceMonitor } from './utils/performance-monitor.js';
-export {
-    CircuitBreaker,
-    retryWithBackoff,
-    AgentError,
-    CircuitBreakerError,
-} from './utils/error-handler.js';
-export {
-    AgentCommunicationBus,
-    createRequest,
-    createResponse,
-    createEvent,
-} from './utils/agent-protocol.js';
 
 import { SchemaCrew } from './crews/schema-crew.js';
 
@@ -59,7 +40,7 @@ async function main() {
             console.log('Generating diagram...\n');
             const result = await crew.generateAndOptimize(description, databaseType);
 
-            if (result.success && result.data) {
+            if (result.success) {
                 console.log('\n📊 Generated Diagram:');
                 console.log(JSON.stringify(result.data.diagram, null, 2));
                 console.log('\n📋 Analysis:');
@@ -116,7 +97,7 @@ async function main() {
             console.log('Analyzing diagram...\n');
             const result = await crew.analyzeDiagram(exampleDiagram);
 
-            if (result.success && result.data) {
+            if (result.success) {
                 console.log('\n' + result.data.analysisReport);
                 console.log('\n' + result.data.optimizationPlan);
             } else {
@@ -147,7 +128,7 @@ async function main() {
             console.log('Validating diagram...\n');
             const result = await crew.validateDiagram(exampleDiagram);
 
-            if (result.success && result.data) {
+            if (result.success) {
                 console.log('Validation Result:', result.data.isValid ? '✅ PASSED' : '❌ FAILED');
                 console.log('\nSummary:');
                 console.log(`  Errors: ${result.data.summary.errorCount}`);

@@ -58,61 +58,9 @@ export interface OptimizationReport {
     recommendations: SchemaSuggestion[];
 }
 
-export interface AgentResult<T = unknown> {
+export interface AgentResult {
     success: boolean;
-    data?: T;
+    data?: any;
     error?: string;
-    metadata?: AgentMetadata;
-}
-
-export interface AgentMetadata {
-    agentsUsed?: string[];
-    timestamp?: string;
-    executionTime?: number;
-    timing?: Record<string, number>;
-    cache?: CacheMetadata;
-    errorType?: 'circuit_breaker' | 'agent_error' | 'unknown';
-    errorDetails?: {
-        agentName?: string;
-        operation?: string;
-        retryable?: boolean;
-        cause?: string;
-    };
-}
-
-export interface CacheMetadata {
-    hits: number;
-    total: number;
-}
-
-export interface GenerateAndOptimizeResult {
-    diagram: any;
-    analysis: SchemaAnalysis;
-    optimization: OptimizationReport;
-    layout: DiagramLayout;
-}
-
-export interface AnalyzeDiagramResult {
-    analysis: SchemaAnalysis;
-    analysisReport: string;
-    optimization: OptimizationReport;
-    optimizationPlan: string;
-}
-
-export interface OptimizeDiagramResult {
-    currentAnalysis: SchemaAnalysis;
-    optimization: OptimizationReport;
-    plan: string;
-    layout: DiagramLayout;
-}
-
-export interface ValidateDiagramResult {
-    isValid: boolean;
-    errors: SchemaIssue[];
-    warnings: SchemaIssue[];
-    summary: {
-        errorCount: number;
-        warningCount: number;
-        infoCount: number;
-    };
+    metadata?: Record<string, any>;
 }

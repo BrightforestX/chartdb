@@ -1,24 +1,27 @@
 {
-  "name": "@chartdb/crewai-agents",
+  "name": "@chartdb/mcp-server",
   "version": "0.1.0",
-  "description": "CrewAI agents for intelligent database schema management",
+  "description": "Model Context Protocol server for ChartDB",
   "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "chartdb-mcp": "dist/index.js"
+  },
   "scripts": {
-    "start": "node dist/index.js",
     "build": "tsc",
     "dev": "tsc --watch",
+    "start": "node dist/index.js",
     "test": "vitest"
   },
   "keywords": [
-    "crewai",
-    "agents",
+    "mcp",
+    "model-context-protocol",
+    "chartdb",
     "database",
-    "schema",
-    "ai"
+    "diagram"
   ],
   "dependencies": {
-    "crewai": "^0.1.0",
-    "openai": "^4.20.0",
+    "@modelcontextprotocol/sdk": "^1.0.4",
     "zod": "^3.23.8",
     "nanoid": "^5.0.7"
   },
