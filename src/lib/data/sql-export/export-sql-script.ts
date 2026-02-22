@@ -917,6 +917,8 @@ const generateSQLPrompt = (databaseType: DatabaseType, sqlScript: string) => {
         - **Conditional Statements**: Utilize PostgreSQL's support for \`IF NOT EXISTS\` in relevant \`CREATE\` statements.
     `,
         oracle: '',
+        surrealdb: '',
+        firestore: '',
     };
 
     const dialectInstruction = dialectInstructionMap[databaseType] ?? '';

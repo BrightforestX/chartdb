@@ -12,3 +12,10 @@ export const HIDE_CHARTDB_CLOUD: boolean =
 export const DISABLE_ANALYTICS: boolean =
     (window?.env?.DISABLE_ANALYTICS ??
         import.meta.env.VITE_DISABLE_ANALYTICS) === 'true';
+
+/** Nango public key for OAuth/sync integrations (e.g. database connections) */
+export const NANGO_PUBLIC_KEY: string =
+    import.meta.env.VITE_NANGO_PUBLIC_KEY ?? '';
+
+/** Whether Nango integration is available */
+export const NANGO_ENABLED: boolean = NANGO_PUBLIC_KEY.length > 0;

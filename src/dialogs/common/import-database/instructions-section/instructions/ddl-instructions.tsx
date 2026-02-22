@@ -92,6 +92,8 @@ const DDLInstructionsMap: Record<DatabaseType, DDLInstruction[]> = {
         },
     ],
     [DatabaseType.ORACLE]: [],
+    [DatabaseType.SURREALDB]: [],
+    [DatabaseType.FIRESTORE]: [],
 };
 
 export interface DDLInstructionsProps {

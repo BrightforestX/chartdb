@@ -335,6 +335,9 @@ export const ko_KR: LanguageTranslation = {
                 check_script_result: '스크립트 결과 확인',
             },
 
+            select_tables: {
+                title: '테이블 선택',
+            },
             cancel: '취소',
             back: '뒤로가기',
             import_from_file: '파일에서 가져오기',

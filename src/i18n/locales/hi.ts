@@ -337,6 +337,9 @@ export const hi: LanguageTranslation = {
                 check_script_result: 'Check Script Result',
             },
 
+            select_tables: {
+                title: 'तालिकाएँ चुनें',
+            },
             cancel: 'रद्द करें',
             back: 'वापस',
             // TODO: Translate

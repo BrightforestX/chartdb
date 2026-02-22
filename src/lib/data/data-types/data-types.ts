@@ -49,6 +49,8 @@ export const dataTypeMap: Record<DatabaseType, readonly DataTypeData[]> = {
     [DatabaseType.CLICKHOUSE]: clickhouseDataTypes,
     [DatabaseType.COCKROACHDB]: postgresDataTypes,
     [DatabaseType.ORACLE]: oracleDataTypes,
+    [DatabaseType.SURREALDB]: genericDataTypes,
+    [DatabaseType.FIRESTORE]: genericDataTypes,
 } as const;
 
 export const sortDataTypes = (dataTypes: DataTypeData[]): DataTypeData[] => {
@@ -91,6 +93,12 @@ export const sortedDataTypeMap: Record<DatabaseType, readonly DataTypeData[]> =
         [DatabaseType.ORACLE]: sortDataTypes([
             ...dataTypeMap[DatabaseType.ORACLE],
         ]),
+        [DatabaseType.SURREALDB]: sortDataTypes([
+            ...dataTypeMap[DatabaseType.SURREALDB],
+        ]),
+        [DatabaseType.FIRESTORE]: sortDataTypes([
+            ...dataTypeMap[DatabaseType.FIRESTORE],
+        ]),
     } as const;
 
 const compatibleTypes: Record<DatabaseType, Record<string, string[]>> = {
@@ -109,6 +117,8 @@ const compatibleTypes: Record<DatabaseType, Record<string, string[]>> = {
     [DatabaseType.CLICKHOUSE]: {},
     [DatabaseType.COCKROACHDB]: {},
     [DatabaseType.ORACLE]: {},
+    [DatabaseType.SURREALDB]: {},
+    [DatabaseType.FIRESTORE]: {},
     [DatabaseType.GENERIC]: {},
 };
 

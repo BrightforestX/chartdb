@@ -333,6 +333,9 @@ export const fr: LanguageTranslation = {
                 check_script_result: 'Vérifier le résultat du Script',
             },
 
+            select_tables: {
+                title: 'Sélectionner les tables',
+            },
             cancel: 'Annuler',
             back: 'Retour',
             import_from_file: "Importer à partir d'un fichier",

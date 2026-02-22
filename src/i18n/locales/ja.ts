@@ -339,6 +339,9 @@ export const ja: LanguageTranslation = {
                 check_script_result: 'Check Script Result',
             },
 
+            select_tables: {
+                title: 'テーブルを選択',
+            },
             cancel: 'キャンセル',
             back: '戻る',
             // TODO: Translate

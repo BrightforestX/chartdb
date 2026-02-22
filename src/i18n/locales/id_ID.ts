@@ -335,6 +335,9 @@ export const id_ID: LanguageTranslation = {
                 check_script_result: 'Periksa Hasil Skrip',
             },
 
+            select_tables: {
+                title: 'Pilih Tabel',
+            },
             cancel: 'Batal',
             import_from_file: 'Impor dari file',
             back: 'Kembali',

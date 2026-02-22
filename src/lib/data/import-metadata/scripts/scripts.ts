@@ -28,4 +28,8 @@ export const importMetadataScripts: ImportMetadataScripts = {
     [DatabaseType.CLICKHOUSE]: () => clickhouseQuery,
     [DatabaseType.COCKROACHDB]: () => cockroachdbQuery,
     [DatabaseType.ORACLE]: () => oracleDBQuery,
+    [DatabaseType.SURREALDB]: () =>
+        '-- SurrealDB: Use INFO FOR DB; to get schema, or import via DBML',
+    [DatabaseType.FIRESTORE]: () =>
+        '-- Firestore: Import via DBML or JSON schema export',
 };
