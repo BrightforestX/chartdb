@@ -9,6 +9,8 @@ import { postgresDataTypes } from './postgres-data-types';
 import { sqlServerDataTypes } from './sql-server-data-types';
 import { sqliteDataTypes } from './sqlite-data-types';
 import { oracleDataTypes } from './oracle-data-types';
+import { surrealdbDataTypes } from './surrealdb-data-types';
+import { firestoreDataTypes } from './firestore-data-types';
 
 export interface DataType {
     id: string;
@@ -49,6 +51,8 @@ export const dataTypeMap: Record<DatabaseType, readonly DataTypeData[]> = {
     [DatabaseType.CLICKHOUSE]: clickhouseDataTypes,
     [DatabaseType.COCKROACHDB]: postgresDataTypes,
     [DatabaseType.ORACLE]: oracleDataTypes,
+    [DatabaseType.SURREALDB]: surrealdbDataTypes,
+    [DatabaseType.FIRESTORE]: firestoreDataTypes,
 } as const;
 
 export const sortDataTypes = (dataTypes: DataTypeData[]): DataTypeData[] => {
@@ -91,6 +95,12 @@ export const sortedDataTypeMap: Record<DatabaseType, readonly DataTypeData[]> =
         [DatabaseType.ORACLE]: sortDataTypes([
             ...dataTypeMap[DatabaseType.ORACLE],
         ]),
+        [DatabaseType.SURREALDB]: sortDataTypes([
+            ...dataTypeMap[DatabaseType.SURREALDB],
+        ]),
+        [DatabaseType.FIRESTORE]: sortDataTypes([
+            ...dataTypeMap[DatabaseType.FIRESTORE],
+        ]),
     } as const;
 
 const compatibleTypes: Record<DatabaseType, Record<string, string[]>> = {
@@ -109,6 +119,11 @@ const compatibleTypes: Record<DatabaseType, Record<string, string[]>> = {
     [DatabaseType.CLICKHOUSE]: {},
     [DatabaseType.COCKROACHDB]: {},
     [DatabaseType.ORACLE]: {},
+    [DatabaseType.SURREALDB]: {
+        int: ['number'],
+        float: ['number', 'decimal'],
+    },
+    [DatabaseType.FIRESTORE]: {},
     [DatabaseType.GENERIC]: {},
 };
 

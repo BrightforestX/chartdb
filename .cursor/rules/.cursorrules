@@ -1,0 +1,32 @@
+# Cursor Rules for ChartDB Development
+
+## Code Style
+- Follow existing TypeScript conventions in the codebase
+- Use functional components with React hooks
+- Maintain consistent indentation (4 spaces)
+- Use meaningful variable and function names
+- Add JSDoc comments for complex functions
+
+## Testing
+- Write unit tests for new features
+- Follow existing test patterns in `__tests__` directories
+- Use descriptive test names
+- Ensure all tests pass before committing
+
+## Git Workflow
+- Make focused commits with clear messages
+- Commit format: `type: description` (e.g., `feat: add SurrealDB support`)
+- Push changes after completing each logical unit of work
+- Work on the designated feature branch
+
+## Database Integration Guidelines
+- Follow the existing pattern for database type definitions
+- Each database needs: type definition, data types, import/export logic
+- Add appropriate test coverage for new database types
+- Update documentation for new database support
+
+## Architecture Patterns
+- Use existing context providers pattern for state management
+- Follow the lib/domain structure for core domain models
+- Keep components small and focused
+- Separate business logic from UI components

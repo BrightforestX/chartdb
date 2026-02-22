@@ -49,6 +49,8 @@ import { laravelActivitylogDb } from './templates/laravel-activitylog-db';
 import { pixelfedDb } from './templates/pixelfed-db';
 import { polrDb } from './templates/polr-db';
 import { djangoAxesDb } from './templates/django-axes-db';
+import { surrealdbTodosDb } from './templates/surrealdb-todos-db';
+import { firestoreTodosDb } from './templates/firestore-todos-db';
 export interface Template {
     slug: string;
     name: string;
@@ -113,4 +115,6 @@ export const templates: Template[] = [
     pixelfedDb,
     polrDb,
     djangoAxesDb,
+    surrealdbTodosDb,
+    firestoreTodosDb,
 ];
