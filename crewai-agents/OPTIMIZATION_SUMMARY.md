@@ -200,7 +200,7 @@ SchemaCrew
 | Metric | Before | After | Improvement |
 |--------|--------|-------|-------------|
 | Execution Time (concurrent ops) | 4-6ms | 2-3ms | 50%+ faster |
-| Cache Hit Time | N/A | <1ms | 95%+ faster |
+| Cache Hit Time | N/A | < 1ms | 95%+ faster |
 | Error Recovery | Manual | Automatic | 100% automated |
 | Type Safety | Partial | Complete | 100% coverage |
 | Test Coverage | None | 83 tests | Full coverage |
