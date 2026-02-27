@@ -18,6 +18,9 @@ import {
     type DBCustomType,
 } from '@/lib/domain/db-custom-type';
 import { validateArrayTypesForDatabase } from './dbml-import-error';
+import { createLogger } from '@/lib/logger';
+
+const logger = createLogger('dbml-import');
 
 export const defaultDBMLDiagramName = 'DBML Import';
 
@@ -826,7 +829,7 @@ export const importDBMLToDiagram = async (
             updatedAt: new Date(),
         };
     } catch (error) {
-        console.error('DBML parsing error:', error);
+        logger.error('dbml_parsing_error', 'DBML parsing error', { error });
         throw error;
     }
 };

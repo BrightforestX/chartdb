@@ -15,6 +15,8 @@ const astDatabaseTypes: Record<DatabaseType, string> = {
     [DatabaseType.CLICKHOUSE]: 'postgresql',
     [DatabaseType.COCKROACHDB]: 'postgresql',
     [DatabaseType.ORACLE]: 'postgresql',
+    [DatabaseType.SURREALDB]: 'postgresql',
+    [DatabaseType.FIRESTORE]: 'postgresql',
 };
 
 export const createDependenciesFromMetadata = async ({

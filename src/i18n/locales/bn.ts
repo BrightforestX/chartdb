@@ -336,6 +336,9 @@ export const bn: LanguageTranslation = {
                 check_script_result: 'স্ক্রিপ্ট ফলাফল যাচাই করুন',
             },
 
+            select_tables: {
+                title: 'টেবিল নির্বাচন করুন',
+            },
             cancel: 'বাতিল করুন',
             back: 'ফিরে যান',
             import_from_file: 'ফাইল থেকে আমদানি করুন',

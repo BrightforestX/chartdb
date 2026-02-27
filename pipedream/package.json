@@ -1,0 +1,18 @@
+{
+  "name": "@chartdb/pipedream-components",
+  "version": "0.1.0",
+  "description": "Pipedream components for ChartDB integration",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "pipedream",
+    "chartdb",
+    "database",
+    "workflow"
+  ],
+  "dependencies": {
+    "@pipedream/platform": "^3.0.0"
+  }
+}

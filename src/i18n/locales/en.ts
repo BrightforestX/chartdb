@@ -326,6 +326,9 @@ export const en = {
                 check_script_result: 'Check Script Result',
             },
 
+            select_tables: {
+                title: 'Select Tables',
+            },
             cancel: 'Cancel',
             import_from_file: 'Import from File',
             back: 'Back',

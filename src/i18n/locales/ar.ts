@@ -332,6 +332,9 @@ export const ar: LanguageTranslation = {
                 check_script_result: 'تحقق من نتيجة البرنامج النصي',
             },
 
+            select_tables: {
+                title: 'اختر الجداول',
+            },
             cancel: 'إلغاء',
             import_from_file: 'استيراد من ملف',
             back: 'رجوع',

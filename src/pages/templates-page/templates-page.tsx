@@ -98,6 +98,7 @@ const TemplatesPageComponent: React.FC = () => {
                         <div className="mt-6 flex w-full flex-col-reverse gap-4 md:flex-row">
                             <div className="relative top-0 flex h-fit w-full shrink-0 flex-col md:sticky md:top-1 md:w-44">
                                 <ListMenu
+                                    data-testid="templates-nav"
                                     items={[
                                         {
                                             title: 'Featured',

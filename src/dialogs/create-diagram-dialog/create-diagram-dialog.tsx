@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Dialog, DialogContent } from '@/components/dialog/dialog';
 import { DatabaseType } from '@/lib/domain/database-type';
 import { useStorage } from '@/hooks/use-storage';
@@ -27,6 +27,7 @@ import {
     importDBMLToDiagram,
 } from '@/lib/dbml/dbml-import/dbml-import';
 import type { ImportMethod } from '@/lib/import-method/import-method';
+import { Stepper } from '@/components/wireweave/stepper';
 
 export interface CreateDiagramDialogProps extends BaseDialogProps {}
 
@@ -216,6 +217,29 @@ export const CreateDiagramDialog: React.FC<CreateDiagramDialogProps> = ({
         }
     }, [importMethod, scriptResult, importNewDiagram]);
 
+    const stepperSteps = useMemo(
+        () => [
+            {
+                id: CreateDiagramDialogStep.SELECT_DATABASE,
+                label: t('new_diagram_dialog.database_selection.title'),
+            },
+            {
+                id: CreateDiagramDialogStep.IMPORT_DATABASE,
+                label: t('new_diagram_dialog.import_database.title'),
+            },
+            {
+                id: CreateDiagramDialogStep.SELECT_TABLES,
+                label: t('new_diagram_dialog.select_tables.title'),
+            },
+        ],
+        [t]
+    );
+
+    const currentStepIndex = useMemo(() => {
+        const idx = stepperSteps.findIndex((s) => s.id === step);
+        return idx >= 0 ? idx : 0;
+    }, [step, stepperSteps]);
+
     return (
         <Dialog
             {...dialog}
@@ -240,6 +264,11 @@ export const CreateDiagramDialog: React.FC<CreateDiagramDialogProps> = ({
                 onInteractOutside={(e) => e.preventDefault()}
                 onEscapeKeyDown={(e) => e.preventDefault()}
             >
+                <Stepper
+                    steps={stepperSteps}
+                    currentStep={currentStepIndex}
+                    className="mb-4 shrink-0"
+                />
                 {step === CreateDiagramDialogStep.SELECT_DATABASE ? (
                     <SelectDatabase
                         createNewDiagram={createEmptyDiagram}

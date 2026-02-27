@@ -1,0 +1,7 @@
+# Wireweave Component Rules
+
+- Use shadcn/ui patterns: forwardRef, displayName, cn() for class merging
+- Use class-variance-authority (cva) for variant styling
+- Follow existing component structure in src/components/
+- Use Tailwind CSS with design tokens from globals.css
+- Export from index when applicable

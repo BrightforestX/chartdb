@@ -1,6 +1,9 @@
 import type { CompilerError } from '@dbml/core/types/parse/error';
 import type { DatabaseType } from '@/lib/domain/database-type';
 import { databaseSupportsArrays } from '@/lib/domain/database-capabilities';
+import { createLogger } from '@/lib/logger';
+
+const logger = createLogger('dbml-import-error');
 
 export interface DBMLError {
     message: string;
@@ -72,7 +75,9 @@ export function parseDBMLError(error: unknown): DBMLError | null {
             return getFirstErrorFromCompileError(parsed);
         }
     } catch (e) {
-        console.error('Error parsing DBML error:', e);
+        logger.error('dbml_error_parse_failed', 'Error parsing DBML error', {
+            error: e,
+        });
     }
 
     return null;

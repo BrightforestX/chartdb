@@ -1,0 +1,43 @@
+{
+  "name": "Auto-generate Diagram from Database Schema",
+  "description": "Automatically create a ChartDB diagram when a new database schema is detected",
+  "trigger": {
+    "type": "webhook",
+    "name": "Database Schema Webhook"
+  },
+  "steps": [
+    {
+      "name": "Parse Schema",
+      "app": "code",
+      "code": "export default defineComponent({\n  async run({ steps }) {\n    const schema = steps.trigger.event.body;\n    return {\n      tables: schema.tables,\n      relationships: schema.relationships\n    };\n  }\n});"
+    },
+    {
+      "name": "Create Diagram",
+      "app": "chartdb",
+      "action": "create-diagram",
+      "params": {
+        "name": "{{ steps.trigger.event.body.database_name }}",
+        "databaseType": "{{ steps.trigger.event.body.database_type }}"
+      }
+    },
+    {
+      "name": "Add Tables",
+      "app": "code",
+      "code": "export default defineComponent({\n  async run({ steps, $ }) {\n    const diagram = steps.create_diagram.data;\n    const results = [];\n    \n    for (const table of steps.parse_schema.tables) {\n      const result = await $.flow.runAction('chartdb', 'add-table', {\n        diagramId: diagram.id,\n        tableName: table.name,\n        fields: JSON.stringify(table.fields)\n      });\n      results.push(result);\n    }\n    \n    return { tables: results };\n  }\n});"
+    },
+    {
+      "name": "Add Relationships",
+      "app": "code",
+      "code": "export default defineComponent({\n  async run({ steps, $ }) {\n    const diagram = steps.create_diagram.data;\n    const results = [];\n    \n    for (const rel of steps.parse_schema.relationships) {\n      const result = await $.flow.runAction('chartdb', 'add-relationship', {\n        diagramId: diagram.id,\n        sourceTableId: rel.sourceTableId,\n        targetTableId: rel.targetTableId,\n        sourceFieldId: rel.sourceFieldId,\n        targetFieldId: rel.targetFieldId,\n        type: rel.type\n      });\n      results.push(result);\n    }\n    \n    return { relationships: results };\n  }\n});"
+    },
+    {
+      "name": "Send Notification",
+      "app": "slack",
+      "action": "send-message",
+      "params": {
+        "channel": "#database-updates",
+        "text": "New database diagram created: {{ steps.create_diagram.data.name }}"
+      }
+    }
+  ]
+}

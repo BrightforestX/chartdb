@@ -1,0 +1,33 @@
+{
+  "name": "@chartdb/mcp-server",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for ChartDB",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "chartdb-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "vitest"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "chartdb",
+    "database",
+    "diagram"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "zod": "^3.23.8",
+    "nanoid": "^5.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "typescript": "^5.2.2",
+    "vitest": "^3.2.4"
+  }
+}

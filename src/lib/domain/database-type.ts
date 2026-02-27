@@ -8,4 +8,6 @@ export enum DatabaseType {
     CLICKHOUSE = 'clickhouse',
     COCKROACHDB = 'cockroachdb',
     ORACLE = 'oracle',
+    SURREALDB = 'surrealdb',
+    FIRESTORE = 'firestore',
 }

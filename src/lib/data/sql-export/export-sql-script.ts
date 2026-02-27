@@ -1,6 +1,9 @@
 import type { Diagram } from '../../domain/diagram';
 import { OPENAI_API_KEY, OPENAI_API_ENDPOINT, LLM_MODEL_NAME } from '@/lib/env';
 import { DatabaseType } from '@/lib/domain/database-type';
+import { createLogger } from '@/lib/logger';
+
+const logger = createLogger('sql-export');
 import type { DBTable } from '@/lib/domain/db-table';
 import { dataTypeMap, type DataType } from '../data-types/data-types';
 import { generateCacheKey, getFromCache, setInCache } from './export-sql-cache';
@@ -767,7 +770,9 @@ export const exportSQL = async (
         setInCache(cacheKey, text);
         return text;
     } catch (error: unknown) {
-        console.error('Error generating SQL:', error);
+        logger.error('sql_generation_failed', 'Error generating SQL', {
+            error,
+        });
         if (error instanceof Error && error.message.includes('API key')) {
             throw new Error(
                 'Error: Please check your API configuration. If using a custom endpoint, make sure the endpoint URL is correct.'
@@ -917,6 +922,8 @@ const generateSQLPrompt = (databaseType: DatabaseType, sqlScript: string) => {
         - **Conditional Statements**: Utilize PostgreSQL's support for \`IF NOT EXISTS\` in relevant \`CREATE\` statements.
     `,
         oracle: '',
+        surrealdb: '',
+        firestore: '',
     };
 
     const dialectInstruction = dialectInstructionMap[databaseType] ?? '';
